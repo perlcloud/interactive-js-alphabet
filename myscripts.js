@@ -2,6 +2,8 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+let effectCount = 1
+
 function playEffect() {
     var effects = [
         "1.mp3",
@@ -10,13 +12,17 @@ function playEffect() {
         "4.mp3",
         "5.mp3",
     ];
-    var effectCount = document.getElementById('effectCount')
+    // var effectCount = document.getElementById('effectCount')
+    
+    console.log(effectCount)
 
-    var audio = new Audio('sounds/' + effects[effectCount.innerHTML]);
-    if (effectCount.innerHTML == effects.length) {
-        effectCount.textContent = 0;
+    var audio = new Audio('sounds/' + effectCount + '.mp3');
+    console.log(audio)
+    if (effectCount == effects.length) {
+        effectCount = 1;
     } else {
-        effectCount.innerHTML = Number(effectCount.innerHTML) + 1
+        // effectCount.innerHTML = Number(effectCount.innerHTML) + 1
+        effectCount += 1
     }
     audio.play();
 }
@@ -41,7 +47,7 @@ function displayChar(e) {
         iconName.textContent = iconName;
         document.getElementById('outerWrap').className = e.key
         playEffect();
-        char.audio(e.key);
+        char.audio(e.key);b
     } catch (err) { }
 }
 
@@ -79,7 +85,7 @@ var char = {
     f: {
         icons: {
             fish: "fish.svg",
-            flower: "Flower.svg",
+            flower: "flower.svg",
         }
     },
     g: {

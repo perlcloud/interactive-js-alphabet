@@ -31,22 +31,44 @@ async function playLetter(char) {
 
 function displayChar(e) {
     try {
+        // Get and display text
         display = char.display(e.key);
+        selectedLetter.textContent = display;
+        // Select and display an icon
         iconObj = char.icon(e.key)
         icon = iconObj["icon"];
-        iconName = iconObj["iconName"];
         iconSrc = 'media/' + icon
-        // document.getElementById('icon').className = icon;
-        document.getElementById('icon').src = iconSrc;
-        selectedLetter.textContent = display;
+        iconName = iconObj["iconName"];
         iconName.textContent = iconName;
+        document.getElementById('icon').src = iconSrc;
         document.getElementById('outerWrap').className = e.key
+        // Play audio
         playEffect();
         char.audio(e.key); b
     } catch (err) { }
 }
 
 var char = {
+    display: function (c) {
+        returnStr = c.toUpperCase() + c.toLowerCase()
+        return returnStr;
+    },
+    icon: function (c) {
+        obj = this[c]
+        keys = Object.keys(obj.icons)
+        randomNum = Math.floor(Math.random() * keys.length);
+        returnObj = {
+            icon: obj.icons[keys[randomNum]],
+            iconName: keys[randomNum],
+        };
+        return returnObj;
+    },
+    audio: async function (c) {
+        audioFile = c.toUpperCase() + ".wav";
+        let audio = new Audio('media/' + audioFile);
+        await sleep(400);
+        audio.play();
+    },
     a: {
         icons: {
             apple: "apple.svg",
@@ -198,26 +220,6 @@ var char = {
         icons: {
             zebra: "zebra.svg",
         }
-    },
-    icon: function (c) {
-        obj = this[c]
-        keys = Object.keys(obj.icons)
-        randomNum = Math.floor(Math.random() * keys.length);
-        returnObj = {
-            icon: obj.icons[keys[randomNum]],
-            iconName: keys[randomNum],
-        };
-        return returnObj;
-    },
-    display: function (c) {
-        returnStr = c.toUpperCase() + c.toLowerCase()
-        return returnStr;
-    },
-    audio: async function (c) {
-        audioFile = c.toUpperCase() + ".wav";
-        let audio = new Audio('media/' + audioFile);
-        await sleep(400);
-        audio.play();
     },
 }
 

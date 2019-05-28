@@ -1,27 +1,22 @@
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
+}
 
 let effectCount = 1
 
 function playEffect() {
-    var effects = [
+    const effects = [
         "1.mp3",
         "2.mp3",
         "3.mp3",
         "4.mp3",
         "5.mp3",
     ];
-    // var effectCount = document.getElementById('effectCount')
-    
-    console.log(effectCount)
 
-    var audio = new Audio('sounds/' + effectCount + '.mp3');
-    console.log(audio)
+    let audio = new Audio('media/' + effectCount + '.mp3');
     if (effectCount == effects.length) {
         effectCount = 1;
     } else {
-        // effectCount.innerHTML = Number(effectCount.innerHTML) + 1
         effectCount += 1
     }
     audio.play();
@@ -29,7 +24,7 @@ function playEffect() {
 
 async function playLetter(char) {
     audioFile = char.toUpperCase() + ".wav";
-    var audio = new Audio('sounds/' + audioFile);
+    let audio = new Audio('media/' + audioFile);
     await sleep(400);
     audio.play();
 }
@@ -40,14 +35,14 @@ function displayChar(e) {
         iconObj = char.icon(e.key)
         icon = iconObj["icon"];
         iconName = iconObj["iconName"];
-        iconSrc = 'icons/' + icon
+        iconSrc = 'media/' + icon
         // document.getElementById('icon').className = icon;
         document.getElementById('icon').src = iconSrc;
         selectedLetter.textContent = display;
         iconName.textContent = iconName;
         document.getElementById('outerWrap').className = e.key
         playEffect();
-        char.audio(e.key);b
+        char.audio(e.key); b
     } catch (err) { }
 }
 
@@ -220,7 +215,7 @@ var char = {
     },
     audio: async function (c) {
         audioFile = c.toUpperCase() + ".wav";
-        var audio = new Audio('sounds/' + audioFile);
+        let audio = new Audio('media/' + audioFile);
         await sleep(400);
         audio.play();
     },
